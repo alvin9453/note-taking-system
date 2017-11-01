@@ -4,9 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose'); 
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var passport = require('passport'); 
+var expressSession = require('express-session');
+var dbConfig = require('./lib/db.js'); 
+var flash = require('connect-flash');
+var initPassport = require('./passport/init');
+
+// Using Mongoose 
+mongoose.connect(dbConfig.url);
 
 var app = express();
 
@@ -24,6 +33,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
+// Configure Passport
+app.use(expressSession({secret: 'TAIWANNCNUPERALLAB'})); 
+app.use(passport.initialize()); 
+app.use(passport.session());
+
+ // Using the flash middleware provided by connect-flash to store messages in session
+// and displaying in templates
+app.use(flash());
+
+
+// Initialize Passport
+initPassport(passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
