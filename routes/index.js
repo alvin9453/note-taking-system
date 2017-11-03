@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Classes = require('../models/class');
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -40,13 +41,23 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/home', isAuthenticated, function(req, res){
-		res.render('home', { user: req.user });
+		Classes.find(function (err,classInfo){
+			console.log(classInfo);
+			res.render('home', { user: req.user, classList : classInfo  });
+		});
+
+		
 	});
 
 	/* Handle Logout */
 	router.get('/signout', function(req, res) {
 		req.logout();
 		res.redirect('/');
+	});
+
+	/* Show classes */
+	router.get('/class', function(req, res) {
+		
 	});
 
 	return router;
