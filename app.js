@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Config Passport
 app.use(cookieSession({
   key: 'node',
-  secret: 'MeetingNoteSystemSession'
+  secret: 'NCNUNOTETAKINGSYSTEM'
 }));
 app.use(passport.initialize());
 app.use(passport.session());
