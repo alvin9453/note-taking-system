@@ -44,6 +44,8 @@
         <td><%= classList[i].classTime %></td>
         <td>
           <form method="POST" action="/notesInOneClass">
+            <input type="hidden" name="username" value=<%= user.username %>>
+            <input type="hidden" name="className" value=<%= classList[i].className %>>
             <input type="hidden" name="classID" value=<%= classList[i].classID %>>
             <input class="btn btn-success" type="submit" value="進入課程">
           </form>

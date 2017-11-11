@@ -1,1 +1,63 @@
-<h1><%= classID %></h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Note-taking System</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Page 1</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown"><a href="#"><span class="glyphicon glyphicon-user"></span><%= user.username %></a></li>
+      <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+ 
+<h1><%= className %></h1>
+<div class="container">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>章節</th>
+        <th>標題</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(lessonInfo.length > 0){ %>
+        <% for(var i = 0; i < lessonInfo.length; i++ ){ %>
+        <tr>
+         <td><%= lessonInfo[i].lessonNum %></td>
+         <td><%= lessonInfo[i].title %></td>
+         <td>
+           <form method="POST" action="">
+             <input class="btn btn-success" type="submit" value="進入筆記">
+           </form>
+         </td>
+        <% } %>
+      <% }else{ %>
+        <tr>
+          <td>目前沒有課程!</td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

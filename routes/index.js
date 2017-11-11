@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Classes = require('../models/class');
-var UserInClasses = require('../models/UserInClass');
+var UserInClasses = require('../models/userinclass');
+var UserInLessons = require('../models/userinlesson');
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -57,7 +58,17 @@ module.exports = function(passport){
 
 	/* Show notes in one class */
 	router.post('/notesInOneClass', function(req, res) {
-		res.render('notesInOneClass',{classID : req.body.classID});
+		UserInLessons.find( {user: req.body.username, classID : req.body.classID} ,function(err, userInLessons){
+			console.log(userInLessons);
+//			if(!userInLessons){
+//				var empty = [];
+//				res.render('notesInOneClass',{user:req.body.username, className : req.body.className , lessonInfo : empty});
+//			}
+//			else{
+				res.render('notesInOneClass',{user:req.body.username, className : req.body.className, lessonInfo : userInLessons});	
+//			}
+			
+		});
 	});
 
 	return router;
