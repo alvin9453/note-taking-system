@@ -27,9 +27,30 @@
 </nav>
   
 <div class="container">
-  <% for(var i = 0; i < classList.length; i++ ){ %>
-    <h3><%= classList[i].name %></h3>
-  <% } %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>我的課程</th>
+        <th>授課老師</th>
+        <th>時間</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(var i = 0; i < classList.length; i++ ){ %>
+      <tr>
+        <td><%= classList[i].name %></td>
+        <td><%= classList[i].teacher %></td>
+        <td><%= classList[i].time %></td>
+        <td>
+          <form method="POST" action="/notesInOneClass">
+            <input type="hidden" name="classID" value=<%= classList[i].cid %>>
+            <input class="btn btn-success" type="submit" value="進入課程">
+          </form>
+        </td>
+      <% } %>
+    </tbody>
+  </table>
 </div>
 
 </body>

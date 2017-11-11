@@ -55,9 +55,10 @@ module.exports = function(passport){
 		res.redirect('/');
 	});
 
-	/* Show classes */
-	router.get('/class', function(req, res) {
-		
+	/* Show notes in one class */
+	router.post('/notesInOneClass', function(req, res) {
+		console.log("ID = ",req.body.classID);
+		res.render('notesInOneClass',{classID : req.body.classID});
 	});
 
 	return router;
