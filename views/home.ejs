@@ -39,12 +39,12 @@
     <tbody>
       <% for(var i = 0; i < classList.length; i++ ){ %>
       <tr>
-        <td><%= classList[i].name %></td>
-        <td><%= classList[i].teacher %></td>
-        <td><%= classList[i].time %></td>
+        <td><%= classList[i].className %></td>
+        <td><%= classList[i].classTeacher %></td>
+        <td><%= classList[i].classTime %></td>
         <td>
           <form method="POST" action="/notesInOneClass">
-            <input type="hidden" name="classID" value=<%= classList[i].cid %>>
+            <input type="hidden" name="classID" value=<%= classList[i].classID %>>
             <input class="btn btn-success" type="submit" value="進入課程">
           </form>
         </td>
