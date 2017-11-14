@@ -6,6 +6,5 @@ module.exports = mongoose.model('UserInClass' , {
     className : String,
     classDepartment : String,
     classTeacher: String,
-    classTime: String,
-	isTakeNote : String
+    classTime: String
 });
