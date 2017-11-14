@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Classes = require('../models/class');
+var Lesson = require('../models/lesson');
 var UserInClasses = require('../models/userinclass');
 var UserInLessons = require('../models/userinlesson');
 
@@ -59,16 +60,13 @@ module.exports = function(passport){
 	/* Show notes in one class */
 	router.post('/notesInOneClass', function(req, res) {
 		UserInLessons.find( {user: req.body.username, classID : req.body.classID} ,function(err, userInLessons){
-			console.log(userInLessons);
-//			if(!userInLessons){
-//				var empty = [];
-//				res.render('notesInOneClass',{user:req.body.username, className : req.body.className , lessonInfo : empty});
-//			}
-//			else{
-				res.render('notesInOneClass',{user:req.body.username, className : req.body.className, lessonInfo : userInLessons});	
-//			}
+			res.render('notesInOneClass',{user:req.body.username, className : req.body.className, lessonInfo : userInLessons});	
 			
 		});
+	});
+
+	router.post('/note-taking', function(req, res) {
+		res.render('noteTakingPage');
 	});
 
 	return router;
