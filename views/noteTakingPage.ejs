@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Note-taking Page</title>
+
+    <!-- Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Firepad and Firebase js -->
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>      
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
     <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
     <script><%- include('../public/javascripts/firepad.ejs') %></script>
     
+    <!-- Firepad css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css" />
     <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
-    <link rel="stylesheet" href="/stylesheets/firepad.css" />
+
+    <!-- This page css -->
+    <link rel="stylesheet" href="/stylesheets/notePage.css" />
 </head>
+
 <body onload="init()">
-    <div id="firepad-container"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="slide">
+                <iframe src="https://www.slideshare.net/slideshow/embed_code/key/wXnQeT3o1ckt1b" width="100%" height="100%" scrolling="no" allowfullscreen> </iframe>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="firepad-container">
+            </div>
+        </div>
+    </div>
+        
  </body>
 
 <!-- <iframe src="https://www.slideshare.net/slideshow/embed_code/key/wXnQeT3o1ckt1b" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/secret/wXnQeT3o1ckt1b" title="20170119 jia-wei-research of-web_real-time_communication_based_on_web_socket" target="_blank">20170119 jia-wei-research of-web_real-time_communication_based_on_web_socket</a> </strong> from <strong><a href="https://www.slideshare.net/ssusere04d37" target="_blank">嘉緯 林</a></strong> </div> -->
