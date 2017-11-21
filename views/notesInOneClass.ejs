@@ -20,7 +20,7 @@
       <li><a href="#">Page 1</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown"><a href="#"><span class="glyphicon glyphicon-user"></span><%= user.username %></a></li>
+      <li class="dropdown"><a href="#"><span class="glyphicon glyphicon-user"></span><%= username %></a></li>
       <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
   </div>
@@ -44,7 +44,8 @@
          <td><%= lessonInfo[i].title %></td>
          <td>
            <form method="POST" action="/note-taking">
-             <input class="btn btn-success" type="submit" value="進入筆記">
+            <input type="hidden" name="username" value= "<%= username %>" >
+            <input class="btn btn-success" type="submit" value="進入筆記">
            </form>
          </td>
         <% } %>
