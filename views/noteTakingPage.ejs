@@ -22,7 +22,25 @@
 
     <!-- This page css -->
     <link rel="stylesheet" href="/stylesheets/notePage.css" />
+    <script>
+        function slidebtn(){
+            var btn = document.getElementById("slidebtn");
+            console.log(btn.innerHTML);
+            if( btn.innerHTML == "隱藏投影片" ){
+                btn.innerHTML = "顯示投影片";
+                document.getElementById('slide').style.width = 0;
+                document.getElementById('firepad-container').style.width = "100%";
+            }
+            else if ( btn.innerHTML == "顯示投影片" ){
+                btn.innerHTML = "隱藏投影片";
+                document.getElementById('slide').style.width = "50%";
+                document.getElementById('firepad-container').style.width = "50%";
+            }
+        }
+    </script>
+
 </head>
+
 
 <body onload="init()">
     <nav class="navbar navbar-inverse">
@@ -33,6 +51,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/home">Home</a></li>
                 <li><a href="#">Page 1</a></li>
+                <button class="btn btn-danger navbar-btn" id="slidebtn" onclick="slidebtn()">隱藏投影片</button>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown"><a href="#"><span class="glyphicon glyphicon-user"></span><%= user.username %></a></li>
@@ -62,5 +81,3 @@
 
 
 </html>
-
-
