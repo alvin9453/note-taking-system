@@ -46,6 +46,9 @@
          <td>
            <form method="POST" action="/note-taking">
             <input type="hidden" name="username" value= "<%= username %>" >
+            <input type="hidden" name="courseID" value= "<%= lessonInfo[i].courseID %>" >
+            <input type="hidden" name="lessonNum" value= "<%= lessonInfo[i].lessonNum %>" >
+            <input type="hidden" name="lessonTitle" value= "<%= lessonInfo[i].title %>" >
             <input class="btn btn-success" type="submit" value="進入筆記">
            </form>
          </td>

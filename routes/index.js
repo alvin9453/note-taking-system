@@ -68,12 +68,12 @@ module.exports = function(passport){
 
 	router.post('/note-taking', function(req, res) {
 		var username = req.body.username;
+		var lessonNum = req.body.lessonNum;
+		var lessonTitle = req.body.lessonTitle;
+		var courseID = req.body.courseID;
 		Users.find( { username : username }, function(err, userTakingNotes){
-			console.log(userTakingNotes[0]);
-			res.render('noteTakingPage', {user : userTakingNotes[0]});
+			res.render('noteTakingPage', {user : userTakingNotes[0] , lessonNum : lessonNum, courseID : courseID , lessonTitle :lessonTitle});
 		});
-		
-		
 	});
 
 	return router;

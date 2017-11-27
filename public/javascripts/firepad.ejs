@@ -12,16 +12,15 @@ function init() {
 
     firebase.initializeApp(config);
 
-    var firepadRef = firebase.database().ref().child('<%= user._id %>');
+    var firepadRef = firebase.database().ref().child('<%= user._id + 'C' + courseID + 'L' + lessonNum %>');
 
     var codeMirror = CodeMirror(document.getElementById('firepad-container'), { lineWrapping: true });
-        
     var firepad = Firepad.fromCodeMirror(firepadRef, codeMirror,
-        { richTextToolbar: true, richTextShortcuts: true , userId:"<%= user._id %>" }
+        { richTextToolbar: true, richTextShortcuts: true , userId:"<%= user._id + 'C' + courseID + 'L' + lessonNum %>" }
     );
     firepad.on('ready', function() {
         if(firepad.isHistoryEmpty()) {
-            firepad.setHtml('<span style="font-size: 24px;">歡迎使用<span style="color: red">筆記系統!</span></span><br/><br/>你可以在下面新增你要的筆記內容 :).\n');
+            firepad.setHtml('<span style="font-size: 24px;">Chapter <%= lessonNum %> : <%= lessonTitle %> </span>');
         }
     });
 }
