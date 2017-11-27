@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid my-nav-block">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/home">課程筆記系統</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/home">主頁面</a></li>
+      <li><a href="#">Feedback</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown"><a href="#">老師 <span class="glyphicon glyphicon-user"></span><%= username %></a></li>
+      <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span> 登出</a></li>
+    </ul>
+  </div>
+</nav>
+ 
+
+<div class="container">
+  <h1><%= courseName %></h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>章節</th>
+        <th>標題</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if(lessonInfo.length > 0){ %>
+        <% for(var i = 0; i < lessonInfo.length; i++ ){ %>
+        <tr>
+         <td><%= lessonInfo[i].lessonNum %></td>
+         <td><%= lessonInfo[i].title %></td>
+         <td>
+           <form method="POST" action="/note-taking">
+            <input type="hidden" name="username" value= "<%= username %>" >
+            <input type="hidden" name="courseID" value= "<%= lessonInfo[i].courseID %>" >
+            <input type="hidden" name="lessonNum" value= "<%= lessonInfo[i].lessonNum %>" >
+            <input type="hidden" name="lessonTitle" value= "<%= lessonInfo[i].title %>" >
+            <input class="btn btn-success" type="submit" value="進入筆記">
+           </form>
+         </td>
+        <% } %>
+      <% }else{ %>
+        <tr>
+          <td>目前沒有課程!</td>
+          <td></td>
+          <td></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

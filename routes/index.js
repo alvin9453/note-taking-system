@@ -59,9 +59,16 @@ module.exports = function(passport){
 	});
 
 	/* Show notes in one class */
-	router.post('/notesInOneCourse', function(req, res) {
+	router.post('/studentLessonPage', function(req, res) {
 		UserInLessons.find( {user: req.body.username, courseID : req.body.courseID} ,function(err, userInLessons){
-			res.render('notesInOneCourse',{username :req.body.username, courseName : req.body.courseName, lessonInfo : userInLessons});	
+			res.render('studentLessonPage',{username :req.body.username, courseName : req.body.courseName, lessonInfo : userInLessons});	
+			
+		});
+	});
+
+	router.post('/teacherLessonPage', function(req, res) {
+		UserInLessons.find( {user: req.body.username, courseID : req.body.courseID} ,function(err, userInLessons){
+			res.render('teacherLessonPage',{username :req.body.username, courseName : req.body.courseName, lessonInfo : userInLessons});	
 			
 		});
 	});

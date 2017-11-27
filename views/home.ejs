@@ -20,7 +20,11 @@
       <li><a href="#">Feedback</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown"><a href="/home">學生 <span class="glyphicon glyphicon-user"></span><%= user.username %></a></li>
+      <% if(user.character == 'teacher'){ %>
+        <li class="dropdown"><a href="#">老師 <span class="glyphicon glyphicon-user"></span><%= user.username %></a></li>
+      <% }else{ %>
+        <li class="dropdown"><a href="#">學生 <span class="glyphicon glyphicon-user"></span><%= user.username %></a></li>
+      <% } %>  
       <li><a href="/signout"><span class="glyphicon glyphicon-log-out"></span> 登出</a></li>
     </ul>
   </div>
@@ -44,13 +48,17 @@
         <td><%= courseList[i].courseTeacher %></td>
         <td><%= courseList[i].courseTime %></td>
         <td>
-          <form method="POST" action="/notesInOneCourse">
-            <input type="hidden" name="username" value="<%= user.username %>">
-            <input type="hidden" name="courseName" value=<%= courseList[i].courseName %>>
-            <input type="hidden" name="courseID" value=<%= courseList[i].courseID %>>
-            <input class="btn btn-success" type="submit" value="進入課程">
-          </form>
-        </td>
+          <% if(user.character == 'student'){  %>
+            <form method="POST" action="/studentLessonPage">
+          <% }else{ %>
+            <form method="POST" action="/teacherLessonPage">
+              <input type="hidden" name="username" value="<%= user.username %>">
+              <input type="hidden" name="courseName" value=<%= courseList[i].courseName %>>
+              <input type="hidden" name="courseID" value=<%= courseList[i].courseID %>>
+              <input class="btn btn-success" type="submit" value="進入課程">
+            </form>
+          </td>
+        <% } %>    
       <% } %>
     </tbody>
   </table>
