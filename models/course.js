@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports = mongoose.model('Class' , {
+module.exports = mongoose.model('Course' , {
 	cid: String,
 	name: String,
 	department: String,

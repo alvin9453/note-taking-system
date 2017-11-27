@@ -38,16 +38,16 @@
       </tr>
     </thead>
     <tbody>
-      <% for(var i = 0; i < classList.length; i++ ){ %>
+      <% for(var i = 0; i < courseList.length; i++ ){ %>
       <tr>
-        <td><%= classList[i].className %></td>
-        <td><%= classList[i].classTeacher %></td>
-        <td><%= classList[i].classTime %></td>
+        <td><%= courseList[i].courseName %></td>
+        <td><%= courseList[i].courseTeacher %></td>
+        <td><%= courseList[i].courseTime %></td>
         <td>
-          <form method="POST" action="/notesInOneClass">
+          <form method="POST" action="/notesInOneCourse">
             <input type="hidden" name="username" value="<%= user.username %>">
-            <input type="hidden" name="className" value=<%= classList[i].className %>>
-            <input type="hidden" name="classID" value=<%= classList[i].classID %>>
+            <input type="hidden" name="courseName" value=<%= courseList[i].courseName %>>
+            <input type="hidden" name="courseID" value=<%= courseList[i].courseID %>>
             <input class="btn btn-success" type="submit" value="進入課程">
           </form>
         </td>

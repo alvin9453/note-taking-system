@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var Users = require('../models/user');
-var Classes = require('../models/class');
+var Courses = require('../models/course');
 var Lesson = require('../models/lesson');
-var UserInClasses = require('../models/userinclass');
+var UserInCourses = require('../models/userincourse');
 var UserInLessons = require('../models/userinlesson');
 
 var isAuthenticated = function (req, res, next) {
@@ -45,9 +45,9 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/home', isAuthenticated, function(req, res){
-		UserInClasses.find( { user : req.user.username } ,function (err, userInClasses){
-			console.log(userInClasses);
-			res.render('home', { user: req.user, classList : userInClasses  });	
+		UserInCourses.find( { user : req.user.username } ,function (err, userInCourses){
+			console.log(userInCourses);
+			res.render('home', { user: req.user, courseList : userInCourses  });	
 		});
 		
 	});
@@ -59,9 +59,9 @@ module.exports = function(passport){
 	});
 
 	/* Show notes in one class */
-	router.post('/notesInOneClass', function(req, res) {
-		UserInLessons.find( {user: req.body.username, classID : req.body.classID} ,function(err, userInLessons){
-			res.render('notesInOneClass',{username :req.body.username, className : req.body.className, lessonInfo : userInLessons});	
+	router.post('/notesInOneCourse', function(req, res) {
+		UserInLessons.find( {user: req.body.username, courseID : req.body.courseID} ,function(err, userInLessons){
+			res.render('notesInOneCourse',{username :req.body.username, courseName : req.body.courseName, lessonInfo : userInLessons});	
 			
 		});
 	});
