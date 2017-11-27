@@ -7,6 +7,23 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script>
+      function newLesson(){
+        if( document.getElementById('newLessonBtn').innerHTML == '新增章節'){
+            var newLessonBlock = document.getElementById('newLessonBlock');
+            newLessonBlock.setAttribute('style','');
+            document.getElementById('newLessonBtn').innerHTML = '隱藏新增章節區塊';
+        }
+        else{
+            var newLessonBlock = document.getElementById('newLessonBlock');
+            newLessonBlock.setAttribute('style','display:none;');
+            document.getElementById('newLessonBtn').innerHTML = '新增章節';
+        }
+        
+
+      }
+  </script>
 </head>
 <body>
 
@@ -18,6 +35,7 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="/home">主頁面</a></li>
       <li><a href="#">Feedback</a></li>
+      <button class="btn btn-danger navbar-btn" id="newLessonBtn" onclick="newLesson()">新增章節</button>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown"><a href="#">老師 <span class="glyphicon glyphicon-user"></span><%= username %></a></li>
@@ -28,6 +46,15 @@
  
 
 <div class="container">
+  <div class="form-group" id="newLessonBlock" style="display:none;">
+     <h3>新增章節</h3>
+     <label>章節標題:</label>
+     <input type="text" class="form-control">
+     <label>第幾章節</label>
+     <input type="text" class="form-control">
+     <label><a href="https://www.slideshare.net/">SlideShare Embed code</a></label>
+     <input type="text" class="form-control">
+  </div>
   <h1><%= courseName %></h1>
   <table class="table table-hover">
     <thead>
