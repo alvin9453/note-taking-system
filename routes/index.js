@@ -46,7 +46,6 @@ module.exports = function(passport){
 	/* GET Home Page */
 	router.get('/home', isAuthenticated, function(req, res){
 		UserInCourses.find( { user : req.user.username } ,function (err, userInCourses){
-			console.log(userInCourses);
 			res.render('home', { user: req.user, courseList : userInCourses  });	
 		});
 		
@@ -60,21 +59,21 @@ module.exports = function(passport){
 
 	/* Show notes in one class */
 	router.post('/studentLessonPage', function(req, res) {
-		UserInLessons.find( {user: req.body.username, courseID : req.body.courseID} ,function(err, userInLessons){
-			res.render('studentLessonPage',{username :req.body.username, courseName : req.body.courseName, lessonInfo : userInLessons});	
+		UserInLessons.find( {user: req.user.username, courseID : req.body.courseID} ,function(err, userInLessons){
+			res.render('studentLessonPage',{username : req.user.username, courseName : req.body.courseName, lessonInfo : userInLessons});	
 			
 		});
 	});
 
 	router.post('/teacherLessonPage', function(req, res) {
-		UserInLessons.find( {user: req.body.username, courseID : req.body.courseID} ,function(err, userInLessons){
-			res.render('teacherLessonPage',{username :req.body.username, courseName : req.body.courseName, lessonInfo : userInLessons});	
+		UserInLessons.find( {user: req.user.username, courseID : req.body.courseID} ,function(err, userInLessons){
+			res.render('teacherLessonPage',{username :req.user.username, courseName : req.body.courseName, lessonInfo : userInLessons});	
 			
 		});
 	});
 
 	router.post('/note-taking', function(req, res) {
-		var username = req.body.username;
+		var username = req.user.username;
 		var lessonNum = req.body.lessonNum;
 		var lessonTitle = req.body.lessonTitle;
 		var courseID = req.body.courseID;

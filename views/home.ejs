@@ -52,13 +52,13 @@
             <form method="POST" action="/studentLessonPage">
           <% }else{ %>
             <form method="POST" action="/teacherLessonPage">
+          <% } %>
               <input type="hidden" name="username" value="<%= user.username %>">
-              <input type="hidden" name="courseName" value=<%= courseList[i].courseName %>>
-              <input type="hidden" name="courseID" value=<%= courseList[i].courseID %>>
+              <input type="hidden" name="courseName" value="<%= courseList[i].courseName %>">
+              <input type="hidden" name="courseID" value="<%= courseList[i].courseID %>">
               <input class="btn btn-success" type="submit" value="進入課程">
             </form>
-          </td>
-        <% } %>    
+        </td>    
       <% } %>
     </tbody>
   </table>
