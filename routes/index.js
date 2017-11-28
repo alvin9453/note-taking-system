@@ -82,5 +82,9 @@ module.exports = function(passport){
 		});
 	});
 
+	router.get('/testajx',function(req,res){
+		res.send('Hi!');
+	});
+
 	return router;
 }
