@@ -47,66 +47,96 @@
  
 
 <div class="container">
-  <div class="form-group" id="newLessonBlock" style="display:none;">
-     <h3>新增章節</h3>
-     <label>章節標題:</label>
-     <input type="text" class="form-control">
-     <label>第幾章節</label>
-     <input type="text" class="form-control">
-     <label><a href="https://www.slideshare.net/">SlideShare Embed code</a></label>
-     <input type="text" class="form-control">
-  </div>
   <h1><%= courseName %></h1>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>章節</th>
-        <th>標題</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <button class="btn btn-success" id="testajx">顯示</button> 
-      <% if(lessonInfo.length > 0){ %>
-        <% for(var i = 0; i < lessonInfo.length; i++ ){ %>
-        <tr>
-         <td><%= lessonInfo[i].lessonNum %></td>
-         <td><%= lessonInfo[i].title %></td>
-         <td>
-           <form method="POST" action="/note-taking">
-            <input type="hidden" name="username" value= "<%= username %>" >
-            <input type="hidden" name="courseID" value= "<%= lessonInfo[i].courseID %>" >
-            <input type="hidden" name="lessonNum" value= "<%= lessonInfo[i].lessonNum %>" >
-            <input type="hidden" name="lessonTitle" value= "<%= lessonInfo[i].title %>" >
-            <input class="btn btn-success" type="submit" value="進入筆記">
-            <script>
-              $(function () {
-                $("#testajx").on("click",function  () {
-                  $.ajax({
-                      type: 'GET',
-                      contentType: 'application/json',
-                      url: '/testajx',
-                      success: function(data) {
-                          console.log('success');
-                          console.log(data);
-                          console.log(JSON.stringify(data));
-                      }
+  <hr>
+  <div class="row">
+    <div class="col-sm-6">
+      <h2>課程章節資訊</h2>
+      <div class="form-group" id="newLessonBlock" style="display:none;">
+        <h3>新增章節</h3>
+        <label>章節標題:</label>
+        <input type="text" class="form-control">
+        <label>第幾章節</label>
+        <input type="text" class="form-control">
+        <label><a href="https://www.slideshare.net/">SlideShare Embed code</a></label>
+        <input type="text" class="form-control">
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>章節</th>
+            <th>標題</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(lessonInfo.length > 0){ %>
+            <% for(var i = 0; i < lessonInfo.length; i++ ){ %>
+            <tr>
+            <td><%= lessonInfo[i].lessonNum %></td>
+            <td><%= lessonInfo[i].title %></td>
+            <td>
+              <form method="POST" action="/note-taking">
+                <input type="hidden" name="username" value= "<%= username %>" >
+                <input type="hidden" name="courseID" value= "<%= lessonInfo[i].courseID %>" >
+                <input type="hidden" name="lessonNum" value= "<%= lessonInfo[i].lessonNum %>" >
+                <input type="hidden" name="lessonTitle" value= "<%= lessonInfo[i].title %>" >
+                <input class="btn btn-success" type="submit" value="進入筆記">
+              </form>
+              <script>
+                  $(function () {
+                    $("#testajx").on("click",function  () {
+                      var courseInfo = {};
+                      courseInfo.username = "<%= username %>";
+                      courseInfo.courseID = "<%= lessonInfo[i].courseID %>";
+                      courseInfo.lessonNum = "<%= lessonInfo[i].lessonNum %>"
+                      $.ajax({
+                          type: 'post',
+                          data: JSON.stringify(courseInfo),
+                          contentType: 'application/json',
+                          url: '/studentsInLesson',
+                          success: function(data) {
+                              var noteList = document.getElementById('studentNoteList');
+                              noteList.innerHTML = "";
+                              var urNode = document.createElement('ul');
+                              var liNode = document.createElement('li');
+                              for(var i in data){
+                                liNode.innerHTML = data[i].user;
+                                urNode.appendChild(liNode);
+                                console.log(data[i]);
+                                console.log(data[i].user);
+                              }
+
+                              noteList.appendChild(urNode);
+                              
+                              
+
+                          }
+                      });
+                    })
                   });
-                })
-              });
-            </script>
-           </form>
-         </td>
-        <% } %>
-      <% }else{ %>
-        <tr>
-          <td>目前沒有課程!</td>
-          <td></td>
-          <td></td>
-        </tr>
-      <% } %>
-    </tbody>
-  </table>
+                </script>
+              <button class="btn btn-success" id="testajx">顯示</button> 
+            </td>
+            <% } %>
+          <% }else{ %>
+            <tr>
+              <td>目前沒有課程!</td>
+              <td></td>
+              <td></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-6">
+      <h2>學生筆記列表</h2>
+      <div id="studentNoteList">
+        <p>請挑選課程並按下顯示筆記按鈕</p>
+      </div>
+    </div>
+  </div>
+  
 </div>
 
 </body>

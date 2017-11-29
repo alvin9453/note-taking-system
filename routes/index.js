@@ -82,8 +82,13 @@ module.exports = function(passport){
 		});
 	});
 
-	router.get('/testajx',function(req,res){
-		res.send('Hi!');
+	router.post('/studentsInLesson',function(req,res){
+		var courseInfo = req.body;
+		UserInLessons.find( { courseID : courseInfo.courseID, lessonNum : courseInfo.lessonNum , user : { '$ne': courseInfo.username } } ,function(err, userInLessons){
+			console.log(userInLessons);
+
+			res.send(userInLessons);	
+		});
 	});
 
 	return router;
