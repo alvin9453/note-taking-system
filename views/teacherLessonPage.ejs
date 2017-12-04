@@ -22,6 +22,17 @@
             document.getElementById('newLessonBtn').innerHTML = '新增章節';
         }
       }
+
+      function showPopup(name){
+        var popup = document.getElementById("popupBlock");
+        popup.innerHTML = name;
+        popup.classList.toggle("show");
+
+      }
+      function hidePopup(){
+        var popup = document.getElementById("popupBlock");
+        popup.classList.toggle("show");
+      }
   </script>
 
   <style>
@@ -40,6 +51,52 @@
     input.noteBtn:active{
       color:hotpink;
       font-size: 22px;
+    }
+    /* Popup window */
+    /* Popup container - can be anything you want */
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* The actual popup */
+    .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+    }
+
+
+    /* Toggle this class - hide and show the popup */
+    .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+    }
+
+    /* Add animation (fade in the popup) */
+    @-webkit-keyframes fadeIn {
+        from {opacity: 0;} 
+        to {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity:1 ;}
     }
   </style>
 </head>
@@ -139,8 +196,10 @@
 
                                 var submitBtn = document.createElement("input");
                                 submitBtn.setAttribute("type", "submit");
-                                submitBtn.setAttribute("class", "noteBtn");
+                                submitBtn.setAttribute("class", "popup");
                                 submitBtn.setAttribute("value", data[i].user);
+                                submitBtn.setAttribute("onmouseover", "showPopup(this.value)");
+                                submitBtn.setAttribute("onmouseout", "hidePopup()");
 
                                 form.appendChild(hiddenOwnerName);
                                 form.appendChild(hiddenCourseID);
@@ -150,10 +209,7 @@
 
                                 liNode.appendChild(form);
                                 olNode.appendChild(liNode);
-                                console.log(data[i]);
-                                console.log(data[i].user);
                               }
-
                               noteList.appendChild(olNode);
                           }
                       });
@@ -172,11 +228,15 @@
         </tbody>
       </table>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-3">
       <h2>學生筆記列表</h2>
       <div id="studentNoteList">
         <p>請挑選課程並按下顯示筆記按鈕</p>
       </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="popup">
+        <span class="popuptext" id="popupBlock">Test!!</span>
     </div>
   </div>
   
