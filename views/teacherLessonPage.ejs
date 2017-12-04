@@ -21,9 +21,27 @@
             newLessonBlock.setAttribute('style','display:none;');
             document.getElementById('newLessonBtn').innerHTML = '新增章節';
         }
-        
-
       }
+      function post_to_url(path, params, method) {
+        method = method || "post"; // Set method to post by default, if not specified.
+
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+
+        for(var key in params) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+        }
+        document.body.appendChild(form);    // Not entirely sure if this is necessary
+        form.submit();
+}
   </script>
 </head>
 <body>
@@ -99,9 +117,44 @@
                               var noteList = document.getElementById('studentNoteList');
                               noteList.innerHTML = "";
                               var urNode = document.createElement('ul');
-                              var liNode = document.createElement('li');
                               for(var i in data){
-                                liNode.innerHTML = data[i].user;
+                                var liNode = document.createElement('li');
+
+                                var form = document.createElement("form");
+                                form.setAttribute("method", "POST");
+                                form.setAttribute("action", "/teacher-note-taking");
+
+                                var hiddenOwnerName = document.createElement("input");
+                                hiddenOwnerName.setAttribute("type", "hidden");
+                                hiddenOwnerName.setAttribute("name", "noteOwner");
+                                hiddenOwnerName.setAttribute("value", data[i].user);
+
+                                var hiddenCourseID = document.createElement("input");
+                                hiddenCourseID.setAttribute("type", "hidden");
+                                hiddenCourseID.setAttribute("name", "courseID");
+                                hiddenCourseID.setAttribute("value", "<%= lessonInfo[i].courseID %>");
+
+                                var hiddenLessonNum = document.createElement("input");
+                                hiddenLessonNum.setAttribute("type", "hidden");
+                                hiddenLessonNum.setAttribute("name", "lessonNum");
+                                hiddenLessonNum.setAttribute("value", "<%= lessonInfo[i].lessonNum %>");
+
+                                var hiddenLessonTitle = document.createElement("input");
+                                hiddenLessonTitle.setAttribute("type", "hidden");
+                                hiddenLessonTitle.setAttribute("name", "lessonTitle");
+                                hiddenLessonTitle.setAttribute("value", "<%= lessonInfo[i].title %>");
+
+                                var submitBtn = document.createElement("input");
+                                submitBtn.setAttribute("type", "submit");
+                                submitBtn.setAttribute("value", data[i].user);
+
+                                form.appendChild(hiddenOwnerName);
+                                form.appendChild(hiddenCourseID);
+                                form.appendChild(hiddenLessonNum);
+                                form.appendChild(hiddenLessonTitle);
+                                form.appendChild(submitBtn);
+
+                                liNode.appendChild(form);
                                 urNode.appendChild(liNode);
                                 console.log(data[i]);
                                 console.log(data[i].user);

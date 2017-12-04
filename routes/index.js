@@ -72,6 +72,15 @@ module.exports = function(passport){
 		});
 	});
 
+	router.post('/studentsInLesson',function(req,res){
+		var courseInfo = req.body;
+		UserInLessons.find( { courseID : courseInfo.courseID, lessonNum : courseInfo.lessonNum , user : { '$ne': courseInfo.username } } ,function(err, userInLessons){
+			console.log(userInLessons);
+
+			res.send(userInLessons);	
+		});
+	});
+
 	router.post('/note-taking', function(req, res) {
 		var username = req.user.username;
 		var lessonNum = req.body.lessonNum;
@@ -82,14 +91,17 @@ module.exports = function(passport){
 		});
 	});
 
-	router.post('/studentsInLesson',function(req,res){
-		var courseInfo = req.body;
-		UserInLessons.find( { courseID : courseInfo.courseID, lessonNum : courseInfo.lessonNum , user : { '$ne': courseInfo.username } } ,function(err, userInLessons){
-			console.log(userInLessons);
-
-			res.send(userInLessons);	
+	router.post('/teacher-note-taking', function(req, res) {
+		var username = req.user.username;
+		var ownerName = req.body.noteOwner;
+		var lessonNum = req.body.lessonNum;
+		var lessonTitle = req.body.lessonTitle;
+		var courseID = req.body.courseID;
+		Users.find( { username : ownerName }, function(err, userTakingNotes){
+			res.render('teacherNotePage', { teacher: username, user : userTakingNotes[0] , lessonNum : lessonNum, courseID : courseID , lessonTitle :lessonTitle});
 		});
 	});
+
 
 	return router;
 }
