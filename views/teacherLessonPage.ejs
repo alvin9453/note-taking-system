@@ -22,26 +22,6 @@
             document.getElementById('newLessonBtn').innerHTML = '新增章節';
         }
       }
-      function post_to_url(path, params, method) {
-        method = method || "post"; // Set method to post by default, if not specified.
-
-        // The rest of this code assumes you are not using a library.
-        // It can be made less wordy if you use one.
-        var form = document.createElement("form");
-        form.setAttribute("method", method);
-        form.setAttribute("action", path);
-
-        for(var key in params) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
-
-            form.appendChild(hiddenField);
-        }
-        document.body.appendChild(form);    // Not entirely sure if this is necessary
-        form.submit();
-}
   </script>
 </head>
 <body>
@@ -94,16 +74,10 @@
             <td><%= lessonInfo[i].lessonNum %></td>
             <td><%= lessonInfo[i].title %></td>
             <td>
-              <form method="POST" action="/note-taking">
-                <input type="hidden" name="username" value= "<%= username %>" >
-                <input type="hidden" name="courseID" value= "<%= lessonInfo[i].courseID %>" >
-                <input type="hidden" name="lessonNum" value= "<%= lessonInfo[i].lessonNum %>" >
-                <input type="hidden" name="lessonTitle" value= "<%= lessonInfo[i].title %>" >
-                <input class="btn btn-success" type="submit" value="進入筆記">
-              </form>
+              <button class="btn btn-success" id="showStudentNotes">顯示學生筆記</button>
               <script>
                   $(function () {
-                    $("#testajx").on("click",function  () {
+                    $("#showStudentNotes").on("click",function  () {
                       var courseInfo = {};
                       courseInfo.username = "<%= username %>";
                       courseInfo.courseID = "<%= lessonInfo[i].courseID %>";
@@ -168,8 +142,7 @@
                       });
                     })
                   });
-                </script>
-              <button class="btn btn-success" id="testajx">顯示</button> 
+                </script> 
             </td>
             <% } %>
           <% }else{ %>
