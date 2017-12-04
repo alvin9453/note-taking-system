@@ -23,6 +23,25 @@
         }
       }
   </script>
+
+  <style>
+    input.noteBtn {
+      background-color: white;
+      border: none;
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    input.noteBtn:hover{
+      color:red;
+      font-size: 22px;
+    }
+    input.noteBtn:active{
+      color:hotpink;
+      font-size: 22px;
+    }
+  </style>
 </head>
 <body>
 
@@ -89,8 +108,8 @@
                           url: '/studentsInLesson',
                           success: function(data) {
                               var noteList = document.getElementById('studentNoteList');
-                              noteList.innerHTML = "";
-                              var urNode = document.createElement('ul');
+                              noteList.innerHTML = "請選擇學生";
+                              var olNode = document.createElement('ol');
                               for(var i in data){
                                 var liNode = document.createElement('li');
 
@@ -120,6 +139,7 @@
 
                                 var submitBtn = document.createElement("input");
                                 submitBtn.setAttribute("type", "submit");
+                                submitBtn.setAttribute("class", "noteBtn");
                                 submitBtn.setAttribute("value", data[i].user);
 
                                 form.appendChild(hiddenOwnerName);
@@ -129,15 +149,12 @@
                                 form.appendChild(submitBtn);
 
                                 liNode.appendChild(form);
-                                urNode.appendChild(liNode);
+                                olNode.appendChild(liNode);
                                 console.log(data[i]);
                                 console.log(data[i].user);
                               }
 
-                              noteList.appendChild(urNode);
-                              
-                              
-
+                              noteList.appendChild(olNode);
                           }
                       });
                     })
