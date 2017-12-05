@@ -36,23 +36,6 @@
   </script>
 
   <style>
-    input.noteBtn {
-      background-color: white;
-      border: none;
-      color: black;
-      text-align: center;
-      text-decoration: none;
-      font-size: 18px;
-    }
-    input.noteBtn:hover{
-      color:red;
-      font-size: 22px;
-    }
-    input.noteBtn:active{
-      color:hotpink;
-      font-size: 22px;
-    }
-    /* Popup window */
     /* Popup container - can be anything you want */
     .popup {
         position: relative;
@@ -62,8 +45,21 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        background-color: white;
+        border: none;
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
     }
-
+    .popup:active{
+      color:hotpink;
+      font-size: 22px;
+    }
+    .popup:hover{
+      color:red;
+      font-size: 22px;
+    }
     /* The actual popup */
     .popup .popuptext {
         visibility: hidden;
@@ -73,7 +69,7 @@
         text-align: center;
         border-radius: 6px;
         padding: 8px 0;
-        position: absolute;
+        position: relative;
         z-index: 1;
         bottom: 125%;
         left: 50%;
@@ -215,7 +211,7 @@
                       });
                     })
                   });
-                </script> 
+              </script> 
             </td>
             <% } %>
           <% }else{ %>
